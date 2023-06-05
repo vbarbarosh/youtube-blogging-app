@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use function vbarbarosh\laravel_debug_eval;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::any('/login', function () {
+    Auth::login(User::first());
+});
+
+Route::any('/debug/eval', function () {
+    user()->should_debug_eval_allowed();
+    return laravel_debug_eval();
 });
