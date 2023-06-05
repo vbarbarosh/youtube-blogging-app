@@ -12,3 +12,8 @@ function uid_user()
 {
     return 'usr_' . cuid2();
 }
+
+function uid_article()
+{
+    return 'art_' . cuid2();
+}

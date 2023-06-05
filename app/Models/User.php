@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Exceptions\NotAuthorized;
 use App\Helpers\Traits\Cast;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +21,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $email_verified_at
+ *
+ * @property EloquentCollection|Article[] $articles
  */
 class User extends Authenticatable
 {
@@ -65,5 +68,10 @@ class User extends Authenticatable
         if (!$this->is_debug_eval_allowed) {
             throw new NotAuthorized();
         }
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }
