@@ -32,7 +32,7 @@ class ArticlesController extends Controller
     {
         $article = new Article();
         $article->user_id = user()->id;
-        $article->title = $request->input('title');
+        $article->title = $request->input('title') ?: 'New Article';
         $article->save();
         return Article::frontend_fetch(Article::query()->where('id', $article->id))->firstOrFail();
     }

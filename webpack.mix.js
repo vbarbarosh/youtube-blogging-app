@@ -1,17 +1,13 @@
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 const mix = require('laravel-mix');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
- |
- */
+// https://laracasts.com/discuss/channels/elixir/how-to-turn-off-build-sucess-notifications-from-laravel-mix
+mix.disableSuccessNotifications();
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .webpackConfig({
+        plugins: [
+            new LiveReloadPlugin(),
+        ]
+    })
+    .vue({version: 2});
