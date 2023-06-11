@@ -2453,8 +2453,9 @@ var page_articles_create = {
               _context.next = 2;
               return (0,_helpers_api_api_articles_create__WEBPACK_IMPORTED_MODULE_0__["default"])(this.value);
             case 2:
+              this.$router.currentRoute.params.retval = true;
               this.$router.back();
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
