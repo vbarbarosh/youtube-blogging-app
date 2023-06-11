@@ -82,7 +82,7 @@ class Article extends Model
             $this->title = trim($input['title']) ?: 'New Article';
         }
         if (isset($input['body'])) {
-            $this->body = trim($input['body']) ?: null;
+            $this->body = $input['body'] ?: null;
         }
     }
 }
