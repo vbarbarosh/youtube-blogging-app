@@ -1,5 +1,6 @@
 <template>
     <div>
+        <input-text v-model="value.uid" label="uid" readonly />
         <input-text v-model="value.title" label="Title" />
         <input-textarea v-model="value.body" label="Body" />
         <input-checkbox v-model="value.is_published" label="Publish" />

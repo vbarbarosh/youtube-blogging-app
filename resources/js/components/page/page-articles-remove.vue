@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import api_articles_remove from '../helpers/api/api_articles_remove';
+    import api_articles_remove from '../../helpers/api/api_articles_remove';
 
     const page_articles_remove = {
         props: ['value'],

@@ -16,6 +16,14 @@ class ArticlesController extends Controller
     }
 
     /**
+     * GET /api/v1/articles-published.json
+     */
+    public function list_published()
+    {
+        return Article::frontend_list(Article::query()->where('articles.is_published', true));
+    }
+
+    /**
      * GET /api/v1/articles/{article_uid}.json
      */
     public function fetch($article_uid)

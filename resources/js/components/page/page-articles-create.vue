@@ -1,10 +1,10 @@
 <template>
     <div>
-        <h2>Update Article</h2>
+        <h2>Create Article</h2>
         <form-article v-bind:value="value" />
         <div>
-            <button-primary v-on:click="click_button_save">
-                Save
+            <button-primary v-on:click="click_button_create">
+                Create
             </button-primary>
             <button-warning v-on:click="click_button_cancel">
                 Cancel
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-    import api_articles_update from '../helpers/api/api_articles_update';
+    import api_articles_create from '../../helpers/api/api_articles_create';
 
-    const page_articles_update = {
+    const page_articles_create = {
         props: ['value'],
         methods: {
-            click_button_save: async function () {
-                await api_articles_update(this.value);
+            click_button_create: async function () {
+                await api_articles_create(this.value);
                 this.$router.currentRoute.params.retval = true;
                 this.$router.back();
             },
@@ -30,5 +30,5 @@
         },
     };
 
-    export default page_articles_update;
+    export default page_articles_create;
 </script>

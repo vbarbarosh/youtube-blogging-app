@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/new">
+        <router-link to="/dashboard/new">
             <button-primary>
                 Create New Article
             </button-primary>
@@ -19,7 +19,7 @@
         <tr v-for="item in items" v-bind:key="item.uid">
             <td>{{ item.uid }}</td>
             <td>
-                <router-link v-bind:to="`/${item.uid}`">
+                <router-link v-bind:to="`/dashboard/${item.uid}`">
                     {{ item.title }}
                 </router-link>
             </td>
@@ -28,7 +28,7 @@
             </td>
             <td>{{ item.created_at }}</td>
             <td>
-                <router-link v-bind:to="`/${item.uid}/delete`">
+                <router-link v-bind:to="`/dashboard/${item.uid}/delete`">
                     <button-danger>
                         Remove
                     </button-danger>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import api_articles_list from '../helpers/api/api_articles_list';
+    import api_articles_list from '../../helpers/api/api_articles_list';
 
     const page_articles_list = {
         data: function () {

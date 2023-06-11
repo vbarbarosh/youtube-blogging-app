@@ -49,6 +49,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    static public function frontend_fetch($query)
+    {
+        return $query->get()->map(function (User $user) {
+            return [
+                'uid' => $user->uid,
+                'email' => $user->email,
+            ];
+        });
+    }
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
