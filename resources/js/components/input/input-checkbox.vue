@@ -1,6 +1,6 @@
 <template>
     <div class="form-check">
-        <input v-on:input="input" v-bind:value="value" v-bind:id="id" class="form-check-input" type="checkbox">
+        <input v-on:input="input" v-bind:checked="value" v-bind:id="id" class="form-check-input" type="checkbox">
         <label v-bind:for="id" class="form-check-label">
             {{ label }}
         </label>
