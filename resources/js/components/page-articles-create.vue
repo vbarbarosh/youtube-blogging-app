@@ -21,6 +21,7 @@
         methods: {
             click_button_create: async function () {
                 await api_articles_create(this.value);
+                this.$router.currentRoute.params.retval = true;
                 this.$router.back();
             },
             click_button_cancel: function () {
