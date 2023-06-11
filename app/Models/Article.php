@@ -75,4 +75,14 @@ class Article extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function fill_unsafe($input)
+    {
+        if (isset($input['title'])) {
+            $this->title = trim($input['title']) ?: 'New Article';
+        }
+        if (isset($input['body'])) {
+            $this->body = trim($input['body']) ?: null;
+        }
+    }
 }

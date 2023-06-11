@@ -32,8 +32,7 @@ class ArticlesController extends Controller
     {
         $article = new Article();
         $article->user_id = user()->id;
-        $article->title = $request->input('title') ?: 'New Article';
-        $article->body = $request->input('body');
+        $article->fill_unsafe($request->input());
         $article->save();
         return Article::frontend_fetch(Article::query()->where('id', $article->id))->firstOrFail();
     }
@@ -45,8 +44,7 @@ class ArticlesController extends Controller
     {
         /** @var Article $article */
         $article = user()->articles()->where('articles.uid', $article_uid)->firstOrFail();
-        $article->title = $request->input('title');
-        $article->body = $request->input('body');
+        $article->fill_unsafe($request->input());
         $article->save();
     }
 
