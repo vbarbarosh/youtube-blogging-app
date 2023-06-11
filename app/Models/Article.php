@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
  * @property $user_id
  * @property $title
  * @property $body
+ * @property $is_published
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
@@ -33,12 +34,17 @@ class Article extends Model
         'user_id'
     ];
 
+    public $casts = [
+        'is_published' => 'boolean',
+    ];
+
     static public function frontend_list($query): Collection
     {
         return $query->get()->map(function (Article $article) {
             return [
                 'uid' => $article->uid,
                 'title' => $article->title,
+                'is_published' => $article->is_published,
                 'created_at' => $article->created_at->toAtomString(),
                 'updated_at' => $article->updated_at->toAtomString(),
             ];
@@ -52,6 +58,7 @@ class Article extends Model
                 'uid' => $article->uid,
                 'title' => $article->title,
                 'body' => $article->body,
+                'is_published' => $article->is_published,
                 'created_at' => $article->created_at->toAtomString(),
                 'updated_at' => $article->updated_at->toAtomString(),
             ];
@@ -68,6 +75,8 @@ class Article extends Model
     {
         $out = parent::replicate($except);
         $out->uid = uid_article();
+        $out->title = 'New Article';
+        $out->is_published = false;
         return $out;
     }
 
@@ -83,6 +92,9 @@ class Article extends Model
         }
         if (isset($input['body'])) {
             $this->body = $input['body'] ?: null;
+        }
+        if (isset($input['is_published'])) {
+            $this->is_published = boolval($input['is_published']);
         }
     }
 }
