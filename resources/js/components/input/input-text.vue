@@ -1,6 +1,6 @@
 <template>
     <div class="form-floating">
-        <input v-on:input="input" v-bind:value="value" v-bind:id="id" placeholder="placeholder" type="text" class="form-control">
+        <input v-on:input="input" v-bind:value="value" v-bind:id="id" v-bind:readonly="readonly" placeholder="placeholder" type="text" class="form-control">
         <label v-bind:for="id">
             {{ label }}
         </label>
@@ -9,7 +9,7 @@
 
 <script>
     const input_text = {
-        props: ['value', 'label', 'placeholder'],
+        props: ['value', 'label', 'placeholder', 'readonly'],
         data: function () {
             return {
                 id: this.uid(),
