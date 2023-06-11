@@ -1,54 +1,42 @@
 <template>
-    <div>
-        <button-primary v-on:click="click_create">Create New Article</button-primary>
-        <table class="table">
-        <thead>
-        <tr>
-            <th>title</th>
-            <th>created</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="item in items" v-bind:key="item.uid">
-            <td>{{ item.title }}</td>
-            <td>{{ item.created_at }}</td>
-            <td>
-                <button-danger v-on:click="click_remove(item)">Remove</button-danger>
-            </td>
-        </tr>
-        </tbody>
-        </table>
-    </div>
+    <keep-alive>
+        <router-view />
+    </keep-alive>
 </template>
 
 <script>
-    import api_articles_create from '../helpers/api/api_articles_create';
-    import api_articles_list from '../helpers/api/api_articles_list';
-    import api_articles_remove from '../helpers/api/api_articles_remove';
+    import Vue from 'vue';
+    import VueRouter from 'vue-router';
+    import api_articles_fetch from '../helpers/api/api_articles_fetch';
+    import page_articles_create from './page-articles-create';
+    import page_articles_list from './page-articles-list';
+    import page_articles_remove from './page-articles-remove';
+    import page_articles_update from './page-articles-update';
+
+    const routes = [
+        {path: '/', component: page_articles_list},
+        {path: '/new',component: page_articles_create, props: true},
+        {path: '/:article_uid', component: page_articles_update, props: true},
+        {path: '/:article_uid/delete', component: page_articles_remove, props: true},
+    ];
+
+    const router = new VueRouter({routes});
+    router.beforeResolve(async function (to, from, next) {
+        if (to.path === '/new') {
+            const reactive = new Vue({data: {article: {title: 'New Article', body: 'Some body here...'}}});
+            to.params.value = reactive.article;
+        }
+        else if (to.params.article_uid) {
+            const article = await api_articles_fetch({uid: to.params.article_uid});
+            const reactive = new Vue({data: {article}});
+            to.params.value = reactive.article;
+            delete to.params.article_uid;
+        }
+        next();
+    });
 
     const page_articles = {
-        data: function () {
-            return {
-                items: [],
-            };
-        },
-        methods: {
-            refresh: async function () {
-                this.items = await api_articles_list();
-            },
-            click_create: async function () {
-                await api_articles_create({});
-                await this.refresh();
-            },
-            click_remove: async function (item) {
-                await api_articles_remove(item);
-                await this.refresh();
-            },
-        },
-        created: async function () {
-            await this.refresh();
-        }
+        router,
     };
 
     export default page_articles;
