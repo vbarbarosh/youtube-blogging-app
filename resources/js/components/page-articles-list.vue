@@ -10,6 +10,7 @@
         <tr>
             <th>uid</th>
             <th>title</th>
+            <th>published</th>
             <th>created</th>
             <th>actions</th>
         </tr>
@@ -21,6 +22,9 @@
                 <router-link v-bind:to="`/${item.uid}`">
                     {{ item.title }}
                 </router-link>
+            </td>
+            <td>
+                <badge-success v-if="item.is_published">Published</badge-success>
             </td>
             <td>{{ item.created_at }}</td>
             <td>

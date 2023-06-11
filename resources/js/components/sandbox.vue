@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="mg15">
         <h2>sandbox</h2>
         <h3>buttons</h3>
-        <div>
+        <div class="mi15">
             <button-danger v-on:click="click_danger" />
             <button-dark v-on:click="click_dark" />
             <button-info v-on:click="click_info" />
@@ -13,7 +13,7 @@
             <button-success v-on:click="click_success" />
             <button-warning v-on:click="click_warning" />
         </div>
-        <div>
+        <div class="mi15">
             <button-outline-danger v-on:click="click_outline_danger" />
             <button-outline-dark v-on:click="click_outline_dark" />
             <button-outline-info v-on:click="click_outline_info" />
@@ -23,6 +23,16 @@
             <button-outline-secondary v-on:click="click_outline_secondary" />
             <button-outline-success v-on:click="click_outline_success" />
             <button-outline-warning v-on:click="click_outline_warning" />
+        </div>
+        <div class="mi15">
+            <badge-danger />
+            <badge-dark />
+            <badge-info />
+            <badge-light />
+            <badge-primary />
+            <badge-secondary />
+            <badge-success />
+            <badge-warning />
         </div>
     </div>
 </template>
