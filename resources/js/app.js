@@ -3,7 +3,14 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+const app = JSON.parse(JSON.stringify(window.YoutubeBloggingApp));
+
 Vue.mixin({
+    data: function () {
+        return {
+            app,
+        };
+    },
     methods: {
         // Generated ids are bound to current element. They are
         // necessary for `id` and `label[for]` attributes. Name
