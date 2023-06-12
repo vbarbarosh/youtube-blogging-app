@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Exceptions\NotAuthorized;
+use App\Exceptions\UserFriendlyException;
 use App\Helpers\Traits\Cast;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -17,6 +19,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property $name
  * @property $email
  * @property $password
+ * @property $password_recovery_token
+ * @property $remember_token
  * @property $is_debug_eval_allowed
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -36,6 +40,7 @@ class User extends Authenticatable
     protected $hidden = [
         'id',
         'password',
+        'password_recovery_token',
         'remember_token',
     ];
 
