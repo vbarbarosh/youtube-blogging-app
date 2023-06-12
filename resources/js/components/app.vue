@@ -1,6 +1,6 @@
 <template>
     <div>
-        <app-nav v-if="app.user" />
+        <app-nav />
         <keep-alive>
             <router-view />
         </keep-alive>
@@ -16,9 +16,19 @@
     import page_articles_remove from './page/page-articles-remove.vue';
     import page_articles_update from './page/page-articles-update.vue';
     import page_landing from './page/page-landing';
+    import page_auth_login from './page/page-auth/page-auth-login';
+    import page_auth_logout from './page/page-auth/page-auth-logout';
+    import page_auth_register from './page/page-auth/page-auth-register';
+    import page_auth_password_recovery_step1 from './page/page-auth/page-auth-password-recovery-step1';
+    import page_auth_password_recovery_step2 from './page/page-auth/page-auth-password-recovery-step2';
 
     const routes = [
         {path: '/', component: page_landing},
+        {path: '/login', component: page_auth_login},
+        {path: '/logout', component: page_auth_logout},
+        {path: '/register', component: page_auth_register},
+        {path: '/password-recovery', component: page_auth_password_recovery_step1},
+        {path: '/password-recovery/:token', component: page_auth_password_recovery_step2},
         {path: '/dashboard', component: page_articles_list},
         {path: '/dashboard/new',component: page_articles_create, props: true},
         {path: '/dashboard/:article_uid', component: page_articles_update, props: true},

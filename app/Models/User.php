@@ -54,6 +54,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @throws UserFriendlyException
+     */
+    static public function register($email, $password): User
+    {
+        if (User::query()->where('email', $email)->exists()) {
+            throw new UserFriendlyException("User with the specified email already exists: [$email]");
+        }
+        $user = new User();
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        $user->save();
+        return $user;
+    }
+
     static public function frontend_fetch($query)
     {
         return $query->get()->map(function (User $user) {

@@ -1,9 +1,7 @@
 <?php
 
-use App\Helpers\Classes\JavaScriptVars;
 use App\Http\Controllers\ArticlesController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use function vbarbarosh\laravel_debug_eval;
 
@@ -24,10 +22,6 @@ Route::get('/dashboard/new', fn () => view('welcome'));
 Route::get('/dashboard/{article_uid}', fn () => view('welcome'));
 Route::get('/dashboard/{article_uid}/delete', fn () => view('welcome'));
 
-Route::any('/login', function () {
-    Auth::login(User::first());
-});
-
 Route::any('/debug/eval', function () {
     user()->should_debug_eval_allowed();
     return laravel_debug_eval();
@@ -40,3 +34,14 @@ Route::get('/api/v1/articles/{article_uid}.json', [ArticlesController::class, 'f
 Route::post('/api/v1/articles', [ArticlesController::class, 'create']);
 Route::patch('/api/v1/articles/{article_uid}', [ArticlesController::class, 'update']);
 Route::delete('/api/v1/articles/{article_uid}', [ArticlesController::class, 'remove']);
+
+Route::get('/login', [LoginController::class, 'page_login']);
+Route::get('/logout', [LoginController::class, 'page_logout']);
+Route::get('/register', [LoginController::class, 'page_register']);
+Route::get('/password-recovery', [LoginController::class, 'page_password_recovery']);
+Route::get('/password-recovery/{token}', [LoginController::class, 'page_password_recovery_token']);
+Route::post('/login', [LoginController::class, 'auth_login']);
+Route::post('/logout', [LoginController::class, 'auth_logout']);
+Route::post('/register', [LoginController::class, 'auth_register']);
+Route::post('/password-recovery', [LoginController::class, 'auth_password_recovery']);
+Route::post('/password-recovery/{token}', [LoginController::class, 'auth_password_recovery_confirm']);
