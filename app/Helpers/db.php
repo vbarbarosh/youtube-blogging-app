@@ -2,10 +2,14 @@
 
 use Xaevik\Cuid2\Cuid2;
 
-function cuid2()
+function cuid2($length = 24)
 {
-    $cuid = new Cuid2();
-    return $cuid->toString();
+    $tmp = '';
+    $cuid = new Cuid2(32);
+    while (strlen($tmp) < $length) {
+        $tmp .= $cuid->toString();
+    }
+    return substr($tmp, 0, $length);
 }
 
 function uid_user()
